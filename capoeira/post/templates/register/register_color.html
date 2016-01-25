@@ -1,0 +1,11 @@
+{% extends 'post/base.html' %}
+{% block content %}
+    <h1>Corda</h1>
+    <form method="POST" class="">{% csrf_token %}
+      <table style="border-spacing:17px; border-collapse: separate;" >
+          {{ form.as_table }}
+      </table>
+
+        <button type="submit" class="save btn btn-default">Salvar</button>
+    </form>
+{% endblock %}

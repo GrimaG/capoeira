@@ -1,18 +1,17 @@
 {% extends 'post/base.html' %}
 
 {% block content %}
-        <h1>Lista de Posts</h1>
+        <h1>Lista de Faixas</h1>
                 <table style="border-spacing: 17px; border-collapse: unset;">
                         <tr>
-                                <th>Titulo</th>
-                                <th>Data</th>
+                                <th>Cor</th>
 
                         </tr>
                 {% for posts in object_list %}
                         <tr>
-                                <td>{{ posts.title }}</td>
-                                <td>{{ posts.published_date }}</td>
-                                
+                                <td>{{ posts.cor }}</td>
+
+
                         </tr>
                 {% empty %}
                         <li>Sem itens na lista.</li>

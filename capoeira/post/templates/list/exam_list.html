@@ -1,0 +1,30 @@
+{% extends 'post/base.html' %}
+
+{% block content %}
+        <h1>Lista de Exames</h1>
+                <table style="border-spacing: 17px; border-collapse: unset;">
+                        <tr>
+                                <th>Data</th>
+                                <th>Mestre</th>
+                                <th>Turma</th>
+                                <th>Logadouro</th>
+                                <th>Bairro</th>
+                                <th>Cidade</th>
+
+                        </tr>
+                {% for posts in object_list %}
+                        <tr>
+                                <td>{{ posts.data }}</td>
+                                <td>{{ posts.mestre_examinador }}</td>
+                                <td>{{ posts.turma }}</td>
+                                <td>{{ posts.logradouro }}</td>
+                                <td>{{ posts.bairro }}</td>
+                                <td>{{ posts.cidade }}</td>
+
+
+                        </tr>
+                {% empty %}
+                        <li>Sem itens na lista.</li>
+                {% endfor %}
+                </table>
+{% endblock content %}

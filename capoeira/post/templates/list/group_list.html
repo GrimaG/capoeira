@@ -1,0 +1,28 @@
+{% extends 'post/base.html' %}
+
+{% block content %}
+        <h1>Lista de Grupos</h1>
+                <table style="border-spacing: 17px; border-collapse: unset;">
+                        <tr>
+                                <th>Nome</th>
+                                <th>Sequencia de cordas</th>
+                                <th>Logadouro</th>
+                                <th>Bairro</th>
+                                <th>Cidade</th>
+
+                        </tr>
+                {% for posts in object_list %}
+                        <tr>
+                                <td>{{ posts.nome }}</td>
+                                <td>{{ posts.sequencia_corda }}</td>
+                                <td>{{ posts.logradouro }}</td>
+                                <td>{{ posts.bairro }}</td>
+                                <td>{{ posts.cidade }}</td>
+
+
+                        </tr>
+                {% empty %}
+                        <li>Sem itens na lista.</li>
+                {% endfor %}
+                </table>
+{% endblock content %}

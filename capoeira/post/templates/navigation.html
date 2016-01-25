@@ -1,0 +1,18 @@
+{% load base_extras %}
+
+<div id="topbar">
+    <div class="navbar">
+        <div class="navbar-side navbar-left"></div>
+        <div class="navbar-content">
+        {% if user.is_authenticated %}
+            <a class="{% navactive request 'servers help_server' %}"
+                href="{% url servers %}">Servers</a>
+            <a class='{% navactive request 'list_group' %}' href='{% url list_group %}'>Grupos</a>
+            <a class="{% navactive request 'account_clouds help_registeraccount
+                href="{% url account_clouds %}">Cloud Accounts</a>
+
+        {% endif %}
+        </div>
+        <div class="navbar-side navbar-right"></div>
+    </div>
+</div>

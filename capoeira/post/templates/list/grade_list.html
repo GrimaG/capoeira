@@ -1,0 +1,30 @@
+{% extends 'post/base.html' %}
+
+{% block content %}
+        <h1>Lista de Turmas</h1>
+                <table style="border-spacing: 17px; border-collapse: unset;">
+                        <tr>
+                                <th>Nome</th>
+                                <th>Turno</th>
+                                <th>Horario</th>
+                                <th>Dia da Semana</th>
+                                <th>Professor</th>
+                                <th>Grupo</th>
+
+                        </tr>
+                {% for posts in object_list %}
+                        <tr>
+                                <td>{{ posts.nome }}</td>
+                                <td>{{ posts.turno }}</td>
+                                <td>{{ posts.horario }}</td>
+                                <td>{{ posts.dia_semana }}</td>
+                                <td>{{ posts.professor }}</td>
+                                <td>{{ posts.grupo }}</td>
+
+
+                        </tr>
+                {% empty %}
+                        <li>Sem itens na lista.</li>
+                {% endfor %}
+                </table>
+{% endblock content %}
