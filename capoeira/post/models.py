@@ -82,30 +82,37 @@ class Exame(models.Model):
     mestre_examinador =  models.ForeignKey(Professor)
     turma = models.ForeignKey(Turma)
 
-#Composite menu navegacao
-class Menu(models.Model):
-    item = ''
-    def __init__(self, item):
-        item = item
+#singleto+decorator
+def singleton(class_):
+  class class_w(class_):
+    _instance = None
+    def __new__(class_, *args, **kwargs):
+      if class_w._instance is None:
+          class_w._instance = super(class_w,
+                                    class_).__new__(class_,
+                                                    *args,
+                                                    **kwargs)
+          class_w._instance._sealed = False
+      return class_w._instance
+    def __init__(self, *args, **kwargs):
+      if self._sealed:
+        return
+      super(class_w, self).__init__(*args, **kwargs)
+      self._sealed = True
+  class_w.__name__ = class_.__name__
+  return class_w
+#fabrica
+@singleton
+class factory(models.Model):
 
-    def get_item():
-        return self.item
-
-class Part(Menu):
-    def __init__(self, arg):
-        super(self.__class__, self).__init__(arg)
-
-class Assembly(Menu):
-    list=""
-    def __init__(self):
-        list=""
-    def add(self,item):
-        self.list+=item
-    def monta_menu(self):
-        return HttpResponse(list)
-
-class criar_menu(models.Model):
-    menu = Assembly()
-    def __init__(self):
-        submenu_grupo = Part("<a class='{% navactive request 'servers help_server' %}' href='{% url list_group %}'>Grupos</a>")
-        menu.add(submenu_grupo.item)
+    def retornar_objeto(self, objeto):
+        if objeto== "aluno":
+            return Aluno
+        if objeto== "professor":
+            return  Professor
+        if objeto == "grupo":
+            return Grupo
+        if objeto == "turma":
+            return Turma
+        if objeto == "exame":
+            return  Exame

@@ -148,3 +148,33 @@ class list_professor(ListView):
 class postDelete(DeleteView):
     model = Posts
     success_url = reverse_lazy('list_post')
+
+#template method para criar relatorios
+class relatorio(models.Model):
+    def titulo(self):  pass
+    def page_head(self):  pass
+    def page_end(self):  pass
+    def conteudo(self): pass
+    def eat(self):  pass
+
+    def gerar(self):
+        relatorio=''
+        relatorio +=self.page_head()
+        relatorio +=self.titulo()
+        relatorio +=self.conteudo()
+        relatorio +=self.page_end()
+        return HttpResponse(relatorio)
+
+class relatorioClasse(relatorio):
+    lista_grupos = factory.retornar_objeto("grupo").objects.all()
+    def page_head(self):
+        return "{% extends 'post/base.html' %}{% block content %}"
+    def titulo(self):
+        return "<h1>Relatorio por Alunos</h1>"
+    def conteudo(self):
+        conteudo = ''
+        for grupos in lista_grupos:
+            lista_turma = factory.retornar_objeto("turma").objects.filter(grupo=grupos)
+            for turmas in lista_turma:
+                
+        return "<h1>Relatorio por Alunos</h1>"
