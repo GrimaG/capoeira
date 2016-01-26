@@ -63,6 +63,8 @@ class Turma(models.Model):
     dia_semana = models.CharField(max_length=100)
     grupo = models.ForeignKey(Grupo, default=None)
     professor = models.ForeignKey(Professor, default=None)
+    def __str__(self):
+        return self.nome
 
 class Aluno(Pessoa):
     turma = models.ForeignKey(Turma, default=None)
@@ -102,8 +104,8 @@ def singleton(class_):
   class_w.__name__ = class_.__name__
   return class_w
 #fabrica
-@singleton
-class factory(models.Model):
+#@singleton apenas na versao 3.x
+class Factory(models.Model):
 
     def retornar_objeto(self, objeto):
         if objeto== "aluno":

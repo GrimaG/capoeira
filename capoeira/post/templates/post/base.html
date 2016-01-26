@@ -19,10 +19,13 @@
                 <a class="navbar-brand" href="#">Capoeira</a>
               </div>
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Page 1</a></li>
-                <li><a href="#">Page 2</a></li>
-                <li><a href="#">Page 3</a></li>
+                <li class="active"><a href="{% url 'post.views.post_list' %}">Home</a></li>
+                <li><a href="{% url 'list_cor' %}">Cordas</a></li>
+                <li><a href="{% url 'list_professor' %}">Professores</a></li>
+                <li><a href="{% url 'list_group' %}">Grupos</a></li>
+                <li><a href="{% url 'list_grade' %}">Turmas</a></li>
+                <li><a href="{% url 'list_studant' %}">Alunos</a></li>
+                <li><a href="{% url 'list_exam' %}">Exames</a></li>
               </ul>
             </div>
         </nav>

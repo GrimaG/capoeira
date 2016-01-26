@@ -1,7 +1,7 @@
 {% extends 'post/base.html' %}
 
 {% block content %}
-        <h1>Lista de Alunos</h1>
+        <h1>Lista de Professores</h1>
                 <table style="border-spacing: 17px; border-collapse: unset;">
                         <tr>
                                 <th>Nome</th>
@@ -27,4 +27,5 @@
                         <li>Sem itens na lista.</li>
                 {% endfor %}
                 </table>
+                <a href="{% url 'post.views.professor_new' %}" class="top-menu"><button type="submit" class="btn btn-default">Cadastrar</button></a>
 {% endblock content %}

@@ -9,15 +9,20 @@
                                 <th>Logadouro</th>
                                 <th>Bairro</th>
                                 <th>Cidade</th>
+                                <th>Turma</th>
+                                <th>Grupo</th>
 
                         </tr>
                 {% for posts in object_list %}
                         <tr>
                                 <td>{{ posts.nome }}</td>
+
                                 <td>{{ posts.cor_corda }}</td>
                                 <td>{{ posts.logradouro }}</td>
                                 <td>{{ posts.bairro }}</td>
                                 <td>{{ posts.cidade }}</td>
+                                <td>{{ posts.turma }}</td>
+                                <td>{{ posts.turma.grupo }}</td>
 
 
                         </tr>
@@ -25,4 +30,5 @@
                         <li>Sem itens na lista.</li>
                 {% endfor %}
                 </table>
+                <a href="{% url 'post.views.studant_new' %}" class="top-menu"><button type="submit" class="btn btn-default">Cadastrar</button></a>
 {% endblock content %}

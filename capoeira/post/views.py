@@ -44,8 +44,10 @@ def studant_new(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.save()
+            salvar = relatorioClasse()
+            salvar.gerar()
             posts = Posts.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-            return redirect('post_list.html', {'posts': posts})
+            return redirect('list_studant')
     else:
         form = StudantForm()
     return render(request, 'register/register_studant.html', {'form': form})
@@ -57,7 +59,7 @@ def color_new(request):
             post = form.save(commit=False)
             post.save()
             posts = Posts.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-            return redirect('post.views.post_list')
+            return redirect('list_cor')
     else:
         form = CordaForm()
     return render(request, 'register/register_color.html', {'form': form})
@@ -69,7 +71,7 @@ def group_new(request):
             post = form.save(commit=False)
             post.save()
             posts = Posts.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-            return redirect('post.views.post_list')
+            return redirect('list_group')
     else:
         form = GroupForm()
     return render(request, 'register/register_group.html', {'form': form})
@@ -81,7 +83,7 @@ def professor_new(request):
             post = form.save(commit=False)
             post.save()
             posts = Posts.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-            return redirect('post.views.post_list')
+            return redirect('list_professor')
     else:
         form = ProfessorForm()
     return render(request, 'register/register_professor.html', {'form': form})
@@ -93,7 +95,7 @@ def grade_new(request):
             post = form.save(commit=False)
             post.save()
             posts = Posts.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-            return redirect('post.views.post_list')
+            return redirect('list_grade')
     else:
         form = GradeForm()
     return render(request, 'register/register_grade.html', {'form': form})
@@ -105,7 +107,7 @@ def exam_new(request):
             post = form.save(commit=False)
             post.save()
             posts = Posts.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-            return redirect('post.views.post_list')
+            return redirect('list_exam')
     else:
         form = ExamForm()
     return render(request, 'register/register_exam.html', {'form': form})
@@ -133,6 +135,12 @@ class list_group(ListView):
         model = Grupo
         def get_success_url(self):
             return reverse('list_group')
+
+class list_grade(ListView):
+        template_name = 'list/grade_list.html'
+        model = Turma
+        def get_success_url(self):
+            return reverse('list_grade')
 class list_studant(ListView):
         template_name = 'list/studant_list.html'
         model = Aluno
@@ -152,29 +160,29 @@ class postDelete(DeleteView):
 #template method para criar relatorios
 class relatorio(models.Model):
     def titulo(self):  pass
-    def page_head(self):  pass
-    def page_end(self):  pass
     def conteudo(self): pass
-    def eat(self):  pass
 
     def gerar(self):
-        relatorio=''
-        relatorio +=self.page_head()
-        relatorio +=self.titulo()
-        relatorio +=self.conteudo()
-        relatorio +=self.page_end()
-        return HttpResponse(relatorio)
+        arq = open("Relatorio Alunos.txt", "w")
+        arq.write(self.titulo())
+        arq.write(self.conteudo())
+        arq.close()
 
 class relatorioClasse(relatorio):
-    lista_grupos = factory.retornar_objeto("grupo").objects.all()
-    def page_head(self):
-        return "{% extends 'post/base.html' %}{% block content %}"
+
     def titulo(self):
-        return "<h1>Relatorio por Alunos</h1>"
+        return "Relatorio por Alunos\n\n\n"
     def conteudo(self):
         conteudo = ''
+        fabrica = Factory()
+        todos_grupos = fabrica.retornar_objeto("grupo")
+        lista_grupos = todos_grupos.objects.all()
         for grupos in lista_grupos:
-            lista_turma = factory.retornar_objeto("turma").objects.filter(grupo=grupos)
+            lista_turma = fabrica.retornar_objeto("turma").objects.filter(grupo=grupos)
+            conteudo +=('------'+grupos.nome+'------\n\n')
             for turmas in lista_turma:
-                
-        return "<h1>Relatorio por Alunos</h1>"
+                lista_aluno = fabrica.retornar_objeto("aluno").objects.filter(turma=turmas)
+                conteudo+=('//--------------'+turmas.nome+'--------------//\n')
+                for aluno in lista_aluno:
+                    conteudo+=(aluno.nome+'\n')
+        return conteudo

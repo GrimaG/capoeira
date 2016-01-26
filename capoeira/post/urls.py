@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^lista/exame/$', views.list_exam.as_view(), name='list_exam'),
     url(r'^lista/grupo/$', views.list_group.as_view (), name='list_group'),
     url(r'^lista/aluno/$', views.list_studant.as_view (), name='list_studant'),
+    url(r'^lista/turma/$', views.list_grade.as_view (), name='list_grade'),
     url(r'^lista/professor/$', views.list_professor.as_view (), name='list_professor'),
     url(r'^register_color.html$', views.color_new),
     url(r'^post/(?P<pk>[0-9]+)/$', views.post_detail),
